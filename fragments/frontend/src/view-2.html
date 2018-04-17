@@ -1,0 +1,31 @@
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+
+<link rel="import" href="../bower_components/vaadin-grid/vaadin-grid.html">
+
+
+<dom-module id="view-2">
+    <template>
+      <br/>
+      View 2
+      <vaadin-button>Button</vaadin-button>
+      <vaadin-grid></vaadin-grid>
+    </template>
+
+    <script>
+        class View2 extends Polymer.Element {
+            static get is() {
+                return 'view-2'
+            }
+            
+            ready() {
+              super.ready();
+              setTimeout(() => {
+                var e = document.createElement('div');
+                e.innerHTML = 'Ready view 2';
+                this.shadowRoot.appendChild(e);
+              }, 2000);
+            }
+        }
+        customElements.define(View2.is, View2);
+    </script>
+</dom-module>

@@ -1,0 +1,33 @@
+{
+  "name": "frontend",
+  "description": "",
+  "main": "",
+  "private": true,
+  "dependencies": {
+    "vaadin-button": "master",
+    "vaadin-checkbox": "master",
+    "vaadin-combo-box": "master",
+    "vaadin-date-picker": "master",
+    "vaadin-dialog": "master",
+    "vaadin-form-layout": "master",
+    "vaadin-grid": "master",
+    "vaadin-icons": "master",
+    "vaadin-list-box": "master",
+    "vaadin-lumo-styles": "master",
+    "vaadin-notification": "master",
+    "vaadin-ordered-layout": "master",
+    "vaadin-progress-bar": "master",
+    "vaadin-radio-button": "master",
+    "vaadin-split-layout": "master",
+    "vaadin-tabs": "master",
+    "vaadin-text-field": "master",
+    "vaadin-upload": "master"
+  },
+  "resolutions": {
+    "vaadin-lumo-styles": "master",
+    "vaadin-checkbox": "master",
+    "vaadin-button": "master",
+    "vaadin-text-field": "master",
+    "vaadin-progress-bar": "master"
+  }
+}

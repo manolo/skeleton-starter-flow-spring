@@ -1,0 +1,78 @@
+<link rel="import" href="bower_components/polymer/polymer.html">
+
+<dom-module id="flow-component-renderer"> 
+  <template>
+    <slot></slot> 
+  </template> 
+  <script>
+  class FlowComponentRenderer extends Polymer.Element {
+    static get is() { return 'flow-component-renderer'; }
+    static get properties() {
+      return {
+        nodeid: Number,
+        appid: String
+      };
+    }
+    static get observers() {
+      return [
+        '_attachRenderedComponentIfAble(appid, nodeid)'
+      ]
+    }
+    
+    _asyncAttachRenderedComponentIfAble() {
+      this._debouncer = Polymer.Debouncer.debounce(
+        this._debouncer,
+        Polymer.Async.idlePeriod,
+        () => this._attachRenderedComponentIfAble()
+      );
+    }
+
+    _attachRenderedComponentIfAble() {
+      if (!this.nodeid || !this.appid) {
+        return;
+      }
+      const renderedComponent = this._getRenderedComponent();
+      if (this.firstElementChild) {
+        if (!renderedComponent) {
+          this._clear();
+          this._asyncAttachRenderedComponentIfAble();
+        } else if (this.firstElementChild !== renderedComponent){
+          this.replaceChild(renderedComponent, this.firstElementChild);
+          this.onComponentRendered();
+        } else {
+          this.onComponentRendered();
+        }
+      } else {
+        if (renderedComponent) {
+          this.appendChild(renderedComponent);
+          this.onComponentRendered();
+        } else {
+          this._asyncAttachRenderedComponentIfAble();
+        }
+      }
+    }
+
+    _getRenderedComponent() {
+      try {
+        return window.Vaadin.Flow.clients[this.appid].getByNodeId(this.nodeid);
+      } catch (error) {
+        console.error("Could not get node %s from app %s", this.nodeid, this.appid);
+        console.error(error);
+      }
+      return null;
+    }
+    
+    _clear() {
+      while (this.hasChildNodes()) {
+        this.removeChild(this.lastChild);
+      }
+    }
+
+    onComponentRendered(){
+      // subclasses can override this method to execute custom logic on resize
+    }
+    
+  }
+  window.customElements.define(FlowComponentRenderer.is, FlowComponentRenderer);
+  </script> 
+</dom-module>
