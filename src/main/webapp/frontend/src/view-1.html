@@ -1,0 +1,26 @@
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+
+<dom-module id="view-1">
+    <template>
+      View 1
+    </template>
+
+    <script>
+        class View1 extends Polymer.Element {
+            static get is() {
+                return 'view-1'
+            }
+            
+            ready() {
+              super.ready();
+              setTimeout(() => {
+                this.shadowRoot.innerHTML = 'Ready view-1 ';
+                
+                var e = document.createElement('view-2');
+                this.shadowRoot.appendChild(e);
+              }, 2000);
+            }
+        }
+        customElements.define(View1.is, View1);
+    </script>
+</dom-module>
